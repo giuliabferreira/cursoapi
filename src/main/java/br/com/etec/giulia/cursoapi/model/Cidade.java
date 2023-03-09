@@ -1,16 +1,23 @@
 package br.com.etec.giulia.cursoapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "cidade")
 public class Cidade {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
     private String nomecidade;
     private String uf;
+
+    @OneToMany(mappedBy = "cidade")
+    private List<Aluno> alunoscidade = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -34,6 +41,14 @@ public class Cidade {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public List<Aluno> getAlunoscidade() {
+        return alunoscidade;
+    }
+
+    public void setAlunoscidade(List<Aluno> alunoscidade) {
+        this.alunoscidade = alunoscidade;
     }
 
     @Override
