@@ -4,6 +4,3 @@ create table aluno (
     idcurso int not null,
     idcidade int not null
 );
-
-insert into aluno(nomealuno, idcurso, idcidade) values (1, "Lilian Aparecida Bodo", "Logística", "Lençóis Paulista");
-

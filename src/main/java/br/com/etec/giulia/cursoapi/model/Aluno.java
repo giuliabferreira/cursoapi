@@ -21,6 +21,7 @@ public class Aluno {
     @JoinColumn(name = "idcidade")
     private Cidade cidade;
 
+
     public Long getId() {
         return id;
     }

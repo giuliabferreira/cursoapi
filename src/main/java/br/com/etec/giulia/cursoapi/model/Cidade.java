@@ -19,6 +19,7 @@ public class Cidade {
     @OneToMany(mappedBy = "cidade")
     private List<Aluno> alunoscidade = new ArrayList<>();
 
+
     public Integer getId() {
         return id;
     }

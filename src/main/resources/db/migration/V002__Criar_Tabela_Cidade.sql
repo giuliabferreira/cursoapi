@@ -4,4 +4,3 @@ create table cidade (
     uf char(2)
 );
 
-insert into cidade(nomecidade, uf) values (1, "Lençóis Paulista", "SP");
