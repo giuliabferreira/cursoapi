@@ -12,9 +12,11 @@ insert into curso (nomecurso) values ("Logística");
 insert into curso (nomecurso) values ("Química");
 
 
+
 insert into cidade (nomecidade, uf) values ("Lençóis Paulista", "SP");
 
 insert into cidade (nomecidade, uf) values ("Porto Alegre", "RS");
+
 
 
 insert into aluno (nomealuno, idcurso, idcidade) values ("Lilian Aparecida", 2, 1);
