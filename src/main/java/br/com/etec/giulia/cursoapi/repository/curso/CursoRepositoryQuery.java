@@ -9,4 +9,6 @@ import java.awt.print.Pageable;
 public interface CursoRepositoryQuery {
 
     public Page<Curso> Filtrar(CursoFilter cursoFilter, Pageable pageable);
+
+    Page<Curso> Filtrar(CursoFilter cursoFilter, org.springframework.data.domain.Pageable pageable);
 }
