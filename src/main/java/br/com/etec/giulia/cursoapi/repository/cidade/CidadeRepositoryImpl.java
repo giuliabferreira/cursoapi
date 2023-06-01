@@ -1,7 +1,7 @@
-package br.com.etec.giulia.cursoapi.repository.curso;
+package br.com.etec.giulia.cursoapi.repository.cidade;
 
-import br.com.etec.giulia.cursoapi.model.Curso;
-import br.com.etec.giulia.cursoapi.repository.filter.CursoFilter;
+import br.com.etec.giulia.cursoapi.model.Cidade;
+import br.com.etec.giulia.cursoapi.repository.filter.CidadeFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,59 +17,63 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursoRepositoryImpl implements CursoRepositoryQuery {
+public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public Page<Curso> Filtrar(CursoFilter cursoFilter, Pageable pageable) {
+    public Page<Cidade> Filtrar(CidadeFilter cidadeFilter, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Curso> criteria = builder.createQuery(Curso.class);
-        Root<Curso> root = criteria.from(Curso.class);
+        CriteriaQuery<Cidade> criteria = builder.createQuery(Cidade.class);
+        Root<Cidade> root = criteria.from(Cidade.class);
 
-        Predicate[] predicates = criarRestricoes(cursoFilter, builder, root);
+        Predicate[] predicates = criarRestricoes(cidadeFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("nomecurso")));
+        criteria.orderBy(builder.asc(root.get("nomecidade")));
 
-        TypedQuery<Curso> query = manager.createQuery(criteria);
+        TypedQuery<Cidade> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
-        return new PageImpl<>(query.getResultList(), pageable, total(cursoFilter));
+        return new PageImpl<>(query.getResultList(), pageable, total(cidadeFilter));
+
     }
 
-    private Long total(CursoFilter cursoFilter) {
+    private Long total(CidadeFilter cidadeFilter) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-        Root<Curso> root = criteria.from(Curso.class);
+        Root<Cidade> root = criteria.from(Cidade.class);
 
-        Predicate[] predicates = criarRestricoes(cursoFilter, builder, root);
+        Predicate[] predicates = criarRestricoes(cidadeFilter, builder, root);
         criteria.where(predicates);
-        criteria.orderBy(builder.asc(root.get("nomecurso")));
+        criteria.orderBy(builder.asc(root.get("nomecidade")));
 
         criteria.select(builder.count(root));
 
         return manager.createQuery(criteria).getSingleResult();
+
     }
 
-    private void adicionarRestricoesDePaginacao(TypedQuery<Curso> query, Pageable pageable) {
+    private void adicionarRestricoesDePaginacao(TypedQuery<Cidade> query, Pageable pageable) {
         int paginaAtual = pageable.getPageNumber();
         int totalRegistrosPorPagina = pageable.getPageSize();
         int primeiroRegistroDaPagina = paginaAtual * totalRegistrosPorPagina;
 
         query.setFirstResult(primeiroRegistroDaPagina);
         query.setMaxResults(totalRegistrosPorPagina);
+
     }
 
-    private Predicate[] criarRestricoes(CursoFilter cursoFilter, CriteriaBuilder builder, Root<Curso> root) {
+    private Predicate[] criarRestricoes(CidadeFilter cidadeFilter, CriteriaBuilder builder, Root<Cidade> root) {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        if (!StringUtils.isEmpty(cursoFilter.getNomecurso())) {
-            predicates.add(builder.like(builder.lower(root.get("nomecurso")),
-                    "%" + cursoFilter.getNomecurso().toLowerCase() + "%" ));
+        if (!StringUtils.isEmpty(cidadeFilter.getNomecidade())) {
+            predicates.add(builder.like(builder.lower(root.get("nomecidade")),
+                    "%" + cidadeFilter.getNomecidade().toLowerCase() + "%" ));
         }
 
         return predicates.toArray(new Predicate[predicates.size()]);
+
     }
 
 }
