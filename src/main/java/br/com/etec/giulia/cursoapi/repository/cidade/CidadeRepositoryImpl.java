@@ -34,6 +34,7 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 
         TypedQuery<Cidade> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
+
         return new PageImpl<>(query.getResultList(), pageable, total(cidadeFilter));
 
     }

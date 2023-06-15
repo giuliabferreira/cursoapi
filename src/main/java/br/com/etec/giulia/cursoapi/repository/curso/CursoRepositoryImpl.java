@@ -35,6 +35,7 @@ public class CursoRepositoryImpl implements CursoRepositoryQuery {
         TypedQuery<Curso> query = manager.createQuery(criteria);
         adicionarRestricoesDePaginacao(query, pageable);
         return new PageImpl<>(query.getResultList(), pageable, total(cursoFilter));
+
     }
 
     private Long total(CursoFilter cursoFilter) {
@@ -49,6 +50,7 @@ public class CursoRepositoryImpl implements CursoRepositoryQuery {
         criteria.select(builder.count(root));
 
         return manager.createQuery(criteria).getSingleResult();
+
     }
 
     private void adicionarRestricoesDePaginacao(TypedQuery<Curso> query, Pageable pageable) {
