@@ -21,4 +21,4 @@ insert into cidade (nomecidade, uf) values ("Porto Alegre", "RS");
 
 insert into aluno (nomealuno, idcurso, idcidade) values ("Lilian Aparecida", 2, 1);
 
-insert into aluno (nomealuno, idcurso, idcidade) values ("Magno Júnior", 1, 2);
+insert into aluno (nomealuno, idcurso, idcidade) values ("Magno Antônio", 1, 2);

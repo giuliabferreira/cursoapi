@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface AlunoRepositoryQuery {
 
     public Page<AlunoDto> Filtrar(AlunoFilter alunoFilter, Pageable pageable);
+
 }
